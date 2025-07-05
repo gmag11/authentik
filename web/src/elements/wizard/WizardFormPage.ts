@@ -23,12 +23,15 @@ export abstract class WizardForm extends Form<KeyUnknown> {
      */
     async submit(): Promise<boolean | undefined> {
         const data = this.serializeForm();
-        if (!data) {
-            return;
-        }
-        const files = this.getFormFiles();
-        const finalData = Object.assign({}, data, files);
-        return this.nextDataCallback(finalData);
+
+        if (!data) return;
+
+        const files = this.files();
+
+        return this.nextDataCallback({
+            ...data,
+            ...files,
+        });
     }
 }
 
