@@ -6,7 +6,7 @@ import "@goauthentik/elements/forms/HorizontalFormElement";
 import "@goauthentik/elements/forms/SearchSelect";
 
 import { msg } from "@lit/localize";
-import { CSSResult, TemplateResult, html } from "lit";
+import { CSSResult, TemplateResult, html, nothing } from "lit";
 import { customElement, property } from "lit/decorators.js";
 
 import PFDescriptionList from "@patternfly/patternfly/components/DescriptionList/description-list.css";
@@ -25,7 +25,7 @@ export class ApplicationCheckAccessForm extends Form<{ forUser: number }> {
     application!: Application;
 
     @property({ attribute: false })
-    result?: PolicyTestResult;
+    result: PolicyTestResult | null = null;
 
     @property({ attribute: false })
     request?: number;
@@ -43,9 +43,9 @@ export class ApplicationCheckAccessForm extends Form<{ forUser: number }> {
         return (this.result = result);
     }
 
-    resetForm(): void {
-        super.resetForm();
-        this.result = undefined;
+    reset(): void {
+        super.reset();
+        this.result = null;
     }
 
     static get styles(): CSSResult[] {
@@ -120,7 +120,7 @@ export class ApplicationCheckAccessForm extends Form<{ forUser: number }> {
                 >
                 </ak-search-select>
             </ak-form-element-horizontal>
-            ${this.result ? this.renderResult() : html``}`;
+            ${this.result ? this.renderResult() : nothing}`;
     }
 }
 

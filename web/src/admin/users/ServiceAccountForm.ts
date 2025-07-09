@@ -20,7 +20,7 @@ import {
 @customElement("ak-user-service-account-form")
 export class ServiceAccountForm extends Form<UserServiceAccountRequest> {
     @property({ attribute: false })
-    result?: UserServiceAccountResponse;
+    result: UserServiceAccountResponse | null = null;
 
     @property({ attribute: false })
     group?: Group;
@@ -49,9 +49,9 @@ export class ServiceAccountForm extends Form<UserServiceAccountRequest> {
         return result;
     }
 
-    resetForm(): void {
-        super.resetForm();
-        this.result = undefined;
+    reset(): void {
+        super.reset();
+        this.result = null;
     }
 
     renderForm(): TemplateResult {
